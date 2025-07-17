@@ -24,68 +24,17 @@ Extras
 
  # Maven Dependencies
 Make sure your pom.xml includes:
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-</dependency>
 
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-jpa</artifactId>
-</dependency>
-
-<dependency>
-    <groupId>com.h2database</groupId>
-    <artifactId>h2</artifactId>
-    <scope>runtime</scope>
-</dependency>
-
-<dependency>
-    <groupId>org.hibernate.validator</groupId>
-    <artifactId>hibernate-validator</artifactId>
-</dependency>
-
-<dependency>
-    <groupId>jakarta.validation</groupId>
-    <artifactId>jakarta.validation-api</artifactId>
-</dependency>
-
-<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <scope>provided</scope>
-</dependency>
+1. spring-boot-starter-web
+2. spring-boot-starter-data-jpa
+3. h2 database
+4. hibernate-validator
+5. jakarta.validation-api
+6. lombok
 
 
-# Global Exception Handling
-ResourceNotFoundException.java
-public class ResourceNotFoundException extends RuntimeException {
-    public ResourceNotFoundException(String message) {
-        super(message);
-    }
-}
-GlobalExceptionHandler.java
-@ControllerAdvice
-public class GlobalExceptionHandler {
+# Global Exception Handling Using ControllerAdvice is handled in this project
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handleValidationErrors(MethodArgumentNotValidException ex) {
-        String errors = ex.getBindingResult().getFieldErrors().stream()
-                          .map(e -> e.getField() + ": " + e.getDefaultMessage())
-                          .collect(Collectors.joining(", "));
-        return ResponseEntity.badRequest().body(errors);
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleNotFound(ResourceNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGeneral(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal error");
-    }
-}
 
 # application.properties
 spring.datasource.url=jdbc:h2:mem:bankdb
@@ -118,7 +67,8 @@ userInfo: trainee01
   }
 }
 
-properties 
+# yml file properties
+ 
 spring:
   datasource:
     url: jdbc:h2:mem:bankdb
