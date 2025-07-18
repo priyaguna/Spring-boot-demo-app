@@ -67,6 +67,9 @@ userInfo: trainee01
   }
 }
 
+# Rest API
+Get http://localhost:8086/cards/1
+
 # yml file properties
  
 spring:

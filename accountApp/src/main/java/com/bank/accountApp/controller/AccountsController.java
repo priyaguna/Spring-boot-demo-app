@@ -4,6 +4,7 @@ import com.bank.accountApp.repository.AccountRepository;
 import com.bank.accountApp.configuration.AccountConfigDev;
 import com.bank.accountApp.model.Account;
 import com.bank.accountApp.repository.UserRepository;
+import com.bank.accountApp.service.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class AccountsController {
     @Autowired
     AccountConfigDev accountConfigDev;
 
+    @Autowired
+    AccountService accountService;
+
     @GetMapping
     public List<Account> getAccounts(){
 
@@ -44,6 +48,11 @@ public class AccountsController {
             @RequestBody @Valid Account account,
             @RequestHeader("userInfo") String userInfoHeader) {
         return ResponseEntity.ok(accountRepo.save(account));
+    }
+
+    @GetMapping("/{accountId}")
+    public Account getAccountsWithAccountId(@PathVariable Long accountId){
+        return accountService.getAccountByAccountId(accountId);
     }
 
 }
