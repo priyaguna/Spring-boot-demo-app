@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:bankdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+branch:
+  branches:
+    1: "BLR"
+    2: "MUM"
+server:
+  port: 8086
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    info:
+      enabled: true
