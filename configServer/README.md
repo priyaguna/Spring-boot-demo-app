@@ -6,7 +6,7 @@ Spring config server
 Spring actuator
 
 # Rest API
-Get http://localhost:8088/accounts/dev
+Get http://localhost:8085/accounts/dev
 
 # yml file properties
  
