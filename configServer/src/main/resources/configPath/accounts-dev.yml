@@ -1,11 +1,11 @@
 spring:
+  application:
+    name: configServer
   datasource:
-    url: jdbc:h2:mem:bankdb
+    url: jdbc:h2:mem:bankdbdev
     driver-class-name: org.h2.Driver
     username: sa
     password:
-  application:
-    name: accountApp
   jpa:
     show-sql: true
     hibernate:
@@ -13,8 +13,16 @@ spring:
   h2:
     console:
       enabled: true
+branch:
+  branches:
+    1: "NY"
+    2: "DC"
 server:
   port: 8087
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
 management:
   endpoints:
     web:
@@ -27,5 +35,6 @@ management:
     info:
       enabled: true
 
-name: accounts
-
+custom:
+  bankName: "SBI Bank"
+  cardName: "MASTERCARD2"

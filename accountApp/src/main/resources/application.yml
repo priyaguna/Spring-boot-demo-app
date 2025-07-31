@@ -1,8 +1,8 @@
 spring:
   application:
-    name: accountApp
-server:
-  port: 8086
+    name: accounts
+  config:
+    import: optional:configserver:http://localhost:8089/
 management:
   endpoints:
     web:
@@ -14,8 +14,6 @@ management:
       show-details: always
     info:
       enabled: true
-
-name: accounts
 
 eureka:
   client:
