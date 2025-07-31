@@ -6,7 +6,11 @@ Spring config server
 Spring actuator
 
 # Rest API
-Get http://localhost:8085/accounts/dev
+Get http://localhost:8089/accounts/dev
+
+# To get properties from account App endpoint which is config for dev
+
+Get http://localhost:8087/accounts-app/config-property
 
 # yml file properties
  
@@ -21,7 +25,7 @@ spring:
         native:
           search-locations: "classpath:/configPath"
 server:
-  port: 8088
+  port: 8089
 
 
 

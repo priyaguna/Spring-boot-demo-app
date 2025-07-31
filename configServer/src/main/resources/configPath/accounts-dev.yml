@@ -2,7 +2,7 @@ spring:
   application:
     name: configServer
   datasource:
-    url: jdbc:h2:mem:bankdbqa
+    url: jdbc:h2:mem:bankdbdev
     driver-class-name: org.h2.Driver
     username: sa
     password:
@@ -34,3 +34,7 @@ management:
       show-details: always
     info:
       enabled: true
+
+custom:
+  bankName: "SBI Bank"
+  cardName: "MASTERCARD2"

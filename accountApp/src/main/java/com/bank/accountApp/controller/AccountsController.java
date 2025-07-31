@@ -1,5 +1,7 @@
 package com.bank.accountApp.controller;
 
+import com.bank.accountApp.config.ConfigProperties;
+import com.bank.accountApp.model.ResponseModel;
 import com.bank.accountApp.repository.AccountRepository;
 import com.bank.accountApp.configuration.AccountConfigDev;
 import com.bank.accountApp.model.Account;
@@ -9,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,24 +26,19 @@ public class AccountsController {
     private final UserRepository userRepo;
 
 
-    @Value("${name}")
-    String name;
-
     @Autowired
     AccountConfigDev accountConfigDev;
 
     @Autowired
     AccountService accountService;
 
+    @Autowired
+    ConfigProperties configProperties;
+
     @GetMapping
     public List<Account> getAccounts(){
 
         return accountConfigDev.getAccounts();
-    }
-
-    @GetMapping("/get-property-name")
-    public String getPropertiesValue() {
-        return name;
     }
 
     @PostMapping
@@ -55,4 +53,12 @@ public class AccountsController {
         return accountService.getAccountByAccountId(accountId);
     }
 
+
+    @GetMapping("/config-property")
+    public ResponseEntity<ResponseModel> configProperties(){
+        ResponseModel responseModel = new ResponseModel();
+        responseModel.setBankName(configProperties.getBankName());
+        responseModel.setCardName(configProperties.getCardName());
+        return new ResponseEntity<>(responseModel, HttpStatus.OK);
+    }
 }

@@ -9,5 +9,5 @@ spring:
         native:
           search-locations: "classpath:/configPath"
 server:
-  port: 8085
+  port: 8089
 
