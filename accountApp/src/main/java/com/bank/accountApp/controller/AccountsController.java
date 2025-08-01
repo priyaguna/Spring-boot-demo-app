@@ -3,7 +3,6 @@ package com.bank.accountApp.controller;
 import com.bank.accountApp.config.ConfigProperties;
 import com.bank.accountApp.model.ResponseModel;
 import com.bank.accountApp.repository.AccountRepository;
-import com.bank.accountApp.configuration.AccountConfigDev;
 import com.bank.accountApp.model.Account;
 import com.bank.accountApp.repository.UserRepository;
 import com.bank.accountApp.service.AccountService;
@@ -27,19 +26,10 @@ public class AccountsController {
 
 
     @Autowired
-    AccountConfigDev accountConfigDev;
-
-    @Autowired
     AccountService accountService;
 
     @Autowired
     ConfigProperties configProperties;
-
-    @GetMapping
-    public List<Account> getAccounts(){
-
-        return accountConfigDev.getAccounts();
-    }
 
     @PostMapping
     public ResponseEntity<Account> createAccount(
