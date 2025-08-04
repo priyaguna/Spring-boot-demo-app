@@ -1,6 +1,7 @@
 package com.bank.accountApp.controller;
 
 import com.bank.accountApp.exception.CustomerAlreadyExistsException;
+import com.bank.accountApp.exception.ResourceNotFoundException;
 import com.bank.accountApp.model.User;
 import com.bank.accountApp.repository.AccountRepository;
 import com.bank.accountApp.configuration.AccountConfigDev;
@@ -22,7 +23,7 @@ import java.util.Optional;
 public class AccountsController {
 
     private final AccountRepository accountRepo;
-    private final UserRepository userRepo;
+    private final UserRepository userRepository;
 
 
     @Value("${name}")
@@ -30,9 +31,6 @@ public class AccountsController {
 
     @Autowired
     AccountConfigDev accountConfigDev;
-
-    @Autowired
-    UserRepository userRepository;
 
     @GetMapping
     public List<Account> getAccounts(){
@@ -54,6 +52,18 @@ public class AccountsController {
             throw new CustomerAlreadyExistsException("Customer already exists with given emailId: "+ existingUser.get().getEmail());
         }
         return ResponseEntity.ok(accountRepo.save(account));
+    }
+
+
+    @GetMapping("/get-user-account-details")
+    public ResponseEntity<User> fetchAccountDetails(@RequestParam(name= "email") String email) {
+
+        Optional<User> existingUser = userRepository.findByEmail(email);
+        if(existingUser.isEmpty()){
+            throw new ResourceNotFoundException("Customer","emailId",email);
+        }
+
+        return ResponseEntity.ok(existingUser.get());
     }
 
 }
