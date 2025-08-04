@@ -17,10 +17,6 @@ branch:
     2: "MUM"
 server:
   port: 8086
-  error:
-    include-message: never
-    include-binding-errors: never
-    include-stacktrace: never
 management:
   endpoints:
     web:
