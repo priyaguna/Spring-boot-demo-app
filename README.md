@@ -2,8 +2,8 @@
 Spring boot application connected to h2 database
 
 
-# Account App
-Implemented CRUD operations
+# Account App 
+Implemented CRUD operations connected with h2 DB
 
 # Cards App
 Implemnted Rest template microservice with account APP
