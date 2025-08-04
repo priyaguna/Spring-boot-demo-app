@@ -1,5 +1,7 @@
 package com.bank.accountApp.controller;
 
+import com.bank.accountApp.exception.CustomerAlreadyExistsException;
+import com.bank.accountApp.model.User;
 import com.bank.accountApp.repository.AccountRepository;
 import com.bank.accountApp.configuration.AccountConfigDev;
 import com.bank.accountApp.model.Account;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/accounts-app")
@@ -28,6 +31,9 @@ public class AccountsController {
     @Autowired
     AccountConfigDev accountConfigDev;
 
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping
     public List<Account> getAccounts(){
 
@@ -43,6 +49,10 @@ public class AccountsController {
     public ResponseEntity<Account> createAccount(
             @RequestBody @Valid Account account,
             @RequestHeader("userInfo") String userInfoHeader) {
+        Optional<User> existingUser = userRepository.findByEmail(account.getUser().getEmail());
+        if(existingUser.isPresent()){
+            throw new CustomerAlreadyExistsException("Customer already exists with given emailId: "+ existingUser.get().getEmail());
+        }
         return ResponseEntity.ok(accountRepo.save(account));
     }
 
